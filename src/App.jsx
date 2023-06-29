@@ -1,7 +1,8 @@
 // import cocktailLogo from "./assets/cocktail.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProductSection from "./components/productSection";
 import ProductList from "./components/productList";
+import CocktailFilter from "./components/CocktailFilter";
 import "./App.css";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <li onClick={() => setProductSection("")}>Home</li>
         <li onClick={() => setProductSection("")}>Contacts</li>
       </ul>
+      <CocktailFilter />
 
       {onRender()}
     </div>

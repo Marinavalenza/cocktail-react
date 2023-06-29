@@ -5,5 +5,5 @@
 .ProductList__list {
   display: flex;
   gap: 12px;
-  overflow-x: scroll;
+  overflow-x: hidden;
 }

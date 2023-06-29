@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { GET } from "../../utils/HTTP";
+import { GET } from "../../utils/http";
 import "./index.css";
 
 const ProductSection = ({ productSection, setProductSection }) => {
