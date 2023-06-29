@@ -1,0 +1,11 @@
+body {
+  margin: 0;
+}
+
+/* Tablet */
+@media (min-width: 767px) {
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+}
