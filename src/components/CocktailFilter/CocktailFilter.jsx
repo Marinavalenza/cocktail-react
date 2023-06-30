@@ -1,44 +1,50 @@
 import React, { useState, useEffect } from "react";
-import "./cocktailFilter.css";
-// import { GET } from "../../utils/http.js";
 
-const CocktailFilter = () => {
-  const [cocktails, setCocktails] = useState([]);
-  const [filteredCocktails, setFilteredCocktails] = useState([]);
+function CocktailSearch() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [cocktails, setCocktails] = useState([]);
 
   useEffect(() => {
-    fetch("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + name)
-      .then((res) => res.json())
-      .then((data) => setCocktails(data.drinks));
-  }, []);
+    if (searchTerm) {
+      fetch(
+        `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchTerm}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setCocktails(data.drinks || []);
+        });
+    } else {
+      setCocktails([]);
+    }
+  }, [searchTerm]);
 
-  useEffect(() => {
-    const filtered = cocktails.filter((cocktail) =>
-      cocktail.name().includes(searchTerm())
-    );
-    setFilteredCocktails(filtered);
-  }, [searchTerm, cocktails]);
-
-  const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSearchTerm(event.target.elements.search.value);
   };
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Cerca cocktail"
-        value={searchTerm}
-        onChange={handleInputChange}
-      />
-      <input type="submit" value="invia" />
-      <ul>
-        {filteredCocktails.map((cocktail) => (
-          <li key={cocktail.id}>{cocktail.name}</li>
-        ))}
-      </ul>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="search" placeholder="Inserisci un cocktail" />
+        <input type="submit" value="Cerca" />
+      </form>
+
+      {cocktails.length > 0 ? (
+        <ul>
+          {cocktails.map((cocktail) => (
+            <li key={cocktail.idDrink}>
+              <button onClick={() => alert(cocktail.strDrink)}>
+                {cocktail.strDrink}
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Nessun cocktail trovato.</p>
+      )}
     </div>
   );
-};
-export default CocktailFilter;
+}
+
+export default CocktailSearch;
